@@ -10,12 +10,7 @@ my $dbh = DBI->connect(
     { RaiseError => 1 },         
 ) or die $DBI::errstr;
 
-my $sth = $dbh->prepare("SELECT SQLITE_VERSION()");
-$sth->execute();
 
-my $ver = $sth->fetch();
-print @$ver;
-print "\n";
 my $res=$dbh->selectall_arrayref(q(SELECT first_name,last_name,home FROM person));
 
 foreach(@$res){
@@ -30,5 +25,4 @@ foreach(@$res){
 }
 
 
-$sth->finish();
 $dbh->disconnect();
