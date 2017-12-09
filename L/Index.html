@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Appointments Basic DataGrid - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+	<h2>Appointments DataGrid</h2>
+	<p>The DataGrid is created from Ming Li </p>
+	<div style="margin:20px 0;"></div>
+	<!--  
+	<table class="easyui-datagrid" title="Basic DataGrid" style="width:700px;height:250px"
+			data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'">
+		<thead>
+			<tr>
+				<th data-options="field:'itemid',width:80">Item ID</th>
+				<th data-options="field:'productid',width:100">Product</th>
+				<th data-options="field:'listprice',width:80,align:'right'">List Price</th>
+				<th data-options="field:'unitcost',width:80,align:'right'">Unit Cost</th>
+				<th data-options="field:'attr1',width:250">Attribute</th>
+				<th data-options="field:'status',width:60,align:'center'">Status</th>
+			</tr>
+		</thead>
+	</table>
+	-->
+	
+<a href="javascript:void(0)" id="mb" class="easyui-menubutton" 
+        data-options="menu:'#mm',iconCls:'icon-edit'">Edit</a>
+<div id="mm" style="width:150px;">
+	<div href="javascript:fn_showAddWIndows(this)" >Add</div>
+	<div href="javascript:fn_test(this)" data-options="iconCls:'icon-remove'">Delete</div>
+	<div class="menu-sep"></div>
+    <div href="javascript:fn_test(this)" data-options="iconCls:'icon-undo'">Undo</div>
+    <div href="javascript:fn_test(this)" data-options="iconCls:'icon-redo'">Redo</div>
+    
+    <div class="menu-sep"></div>
+    <div href="javascript:fn_test(this)" >Select All</div>
+</div>
+
+appointmentDescription:<input class="easyui-textbox" type="text" id="search_appointmentDescription" data-options="iconCls:'icon-search'" >
+<a id="btn" href="javascript:fn_searchAppointments(this)" class="easyui-linkbutton" data-options="iconCls:'icon-search'">search</a>
+
+<table id="table_appointments" class="easyui-datagrid" title="Appointments Basic DataGrid" style="width:610px;height:250px">  
+	<thead>
+		<tr>
+			<th data-options="field:'appointmentDescription',width:200">appointmentDescription</th>
+			<th data-options="field:'appointmentDate',width:200">appointmentDate</th>
+			<th data-options="field:'appointmentTime',width:200,">appointmentTime</th>
+		</tr>
+	</thead>
+</table>
+	
+
+
+
+
+<div id="win" class="easyui-window" title="My Window" style="width:500px;height:300px"
+        data-options="iconCls:'icon-save',modal:true,closed:true">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'north',split:true" style="text-align: center;height:30px"> input the Appointments </div>
+     	<div data-options="region:'center'">
+	        <form id="form_Appointments" method="post">
+	        	<div data-options="region:'north',split:true" style="height:30px"></div>
+			    <div>
+			        <label for="appointmentDescription">appointmentDescription:</label>
+			        <input class="easyui-textbox" type="text"  id="appointmentDescription" name="appointmentDescription"  >
+			    </div>
+			    <div data-options="region:'north',split:true" style="height:20px"></div>
+			    <div>
+			        <label for="appointmentDate">appointmentDate:</label>
+			   		<input  type="text" id="appointmentDate" name="appointmentDate"   class="easyui-datebox" required="required"> 
+			    </div>
+			 	<div data-options="region:'north',split:true" style="height:20px"></div>
+			    <div>
+			        <label for="appointmentTime">appointmentTime:</label>
+			        <input class="easyui-numberbox" type="text" id="appointmentTime"  name="appointmentTime" data-options="validType:'number'" /> &nbsp;&nbsp; this value like 11:20
+			    </div>
+			    <div data-options="region:'north',split:true" style="height:30px"></div>
+			    <a id="btn" href="javascript:fn_test(this)" class="easyui-linkbutton" data-options="iconCls:'icon-clear'">clear</a>
+			    <a id="btn" href="javascript:fn_saveAppointments(this)"  class="easyui-linkbutton" data-options="iconCls:'icon-save'">save</a>
+			</form>
+		</div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>
