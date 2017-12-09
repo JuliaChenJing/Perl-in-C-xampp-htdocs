@@ -3,107 +3,129 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>AT&T Assessment</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">	
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>
-$(function(){
- 
- //default acitivity during page load
- getAppointments();
- $("#btnAdd").hide();
- $("#btnCancel").hide();
- $("#info").hide();
-  
-  //new button activity
-  $("#btnNew").click(function(){
-		$("#btnAdd").show();
- 		$("#btnCancel").show();
-		$("#info").show();
-		$("#btnNew").hide();						   
-  });	
-  
-  //cancel button activity
-  $("#btnCancel").click(function(){
-		$("#btnAdd").hide();
- 		$("#btnCancel").hide();
-		$("#info").hide();
-		$("#btnNew").show();						   
-  });
-  
-  //search button activity and loading data in JSON format
-  $("#btnSearch").click(function(){
-	var searchData=$("#txtSearch").val();
-	$.ajax('http://localhost/ATnT/searchData.pl?searchData='+searchData,{
-				"type": "GET", 
-				dataType:"JSON",		
-				"data": '',
-				"success":loadDetails,
-				"error":failure
-	});
-  });
-  
-});
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script>
+		$(function() {
 
-//loading data for appointments in JSON format
-function getAppointments(){
-		$.ajax('http://localhost/ATnT/selectData.pl',{
-				"type": "GET", 
-				dataType:"JSON",		
-				"data": '',
-				"success":loadDetails,
-				"error":failure
-	});
-}
+			//default acitivity during page load
+			getAppointments();
+			$("#btnAdd").hide();
+			$("#btnCancel").hide();
+			$("#info").hide();
 
-//Function to display appointments after success of loading from getAppointments()
-function loadDetails(data){
-//if search data doesnot match in table
-if(data.length==0){
- failure();
-}
-else { 
-var htmlData='<table border="1" class="table table-striped"><tr><td colspan="3" align="center"><strong>Appointment Table</strong></td></tr>';
-    htmlData+='<tr><th>Date</th><th>Time (24 Hr)</th><th>Description</th></tr>';		
-	$.each(data,function(index,item){
-		var datetime = data[index].datetime.split(' ');
-		htmlData+='<tr>';
-		htmlData+='<td>'+datetime[0]+'</td>';
-		htmlData+='<td>'+datetime[1]+'</td>';
-		htmlData+='<td>'+item.description+'</td>';
-		htmlData+='</tr>';
-	});
-	htmlData+='</table>';
-	$('#displayAppointment').html(htmlData);
-  }
-}
+			//new button activity
+			$("#btnNew").click(function() {
+				$("#btnAdd").show();
+				$("#btnCancel").show();
+				$("#info").show();
+				$("#btnNew").hide();
+			});
 
-//if data is not loaded from database or database table is empty
-function failure(){
-	var htmlDataError='=============No Data to Display. Please Enter Data============';		
-	$('#displayAppointment').html(htmlDataError);
-	}
-</script>
+			//cancel button activity
+			$("#btnCancel").click(function() {
+				$("#btnAdd").hide();
+				$("#btnCancel").hide();
+				$("#info").hide();
+				$("#btnNew").show();
+			});
 
+			//search button activity and loading data in JSON format
+			$("#btnSearch").click(
+					function() {
+						var searchData = $("#txtSearch").val();
+						$.ajax(
+								'http://localhost/perl/p/searchData.pl?searchData='
+										+ searchData, {
+									"type" : "GET",
+									dataType : "JSON",
+									"data" : '',
+									"success" : loadDetails,
+									"error" : failure
+								});
+					});
+
+		});
+
+		//loading data for appointments in JSON format
+		function getAppointments() {
+			$.ajax('http://localhost/perl/p/selectData.pl', {
+				"type" : "GET",
+				dataType : "JSON",
+				"data" : '',
+				"success" : loadDetails,
+				"error" : failure
+			});
+		}
+
+		//Function to display appointments after success of loading from getAppointments()
+		function loadDetails(data) {
+			//if search data doesnot match in table
+			if (data.length == 0) {
+				failure();
+			} else {
+				var htmlData = '<table border="1" class="table table-striped"><tr><td colspan="3" align="center"><strong>Appointment Table</strong></td></tr>';
+				htmlData += '<tr><th>Date</th><th>Time (24 Hr)</th><th>Description</th></tr>';
+				$.each(data, function(index, item) {
+					var datetime = data[index].datetime.split(' ');
+					htmlData += '<tr>';
+					htmlData += '<td>' + datetime[0] + '</td>';
+					htmlData += '<td>' + datetime[1] + '</td>';
+					htmlData += '<td>' + item.description + '</td>';
+					htmlData += '</tr>';
+				});
+				htmlData += '</table>';
+				$('#displayAppointment').html(htmlData);
+			}
+		}
+
+		//if data is not loaded from database or database table is empty
+		function failure() {
+			var htmlDataError = '=============No Data to Display. Please Enter Data============';
+			$('#displayAppointment').html(htmlDataError);
+		}
+	</script>
 </head>
-<body style="padding:25px;">
-<form  method="post" action="insertData.pl"> 
-<input type="button" value="New" id="btnNew" class="btn btn-primary"/>
-<input type="submit" value="Add" id="btnAdd" class="btn btn-success"/>&nbsp;
-<input type="button" value="Cancel" id="btnCancel" class="btn btn-danger"/><br /><br />
-<div id="info">
-<table>
-<tr><td><label class="col-md-4 control-label">Date</label> </td><td><input type="date" id="txtDate" name="txtDate" placeholder="2015-10-10 (Format)" required class="form-control input-md"/> </td></tr>
-<tr><td><label class="col-md-4 control-label">Time</label></td><td><input type="time" id="txtTime" name="txtTime" placeholder="10:25(24Hours Format)" required class="form-control input-md"/></td></tr>
-<tr><td><label class="col-md-4 control-label">Description</label></td><td><input type="text" id="txtDescription" placeholder="Description Here..." name="txtDescription" required class="form-control input-md"/></td></tr>
-</table>
-</form>
-</div>
-<br />
-<form>
-<input type="text" id="txtSearch" name="txtSearch" required="true" placeholder="Search Data..."/>&nbsp;<input type="button" value="Search" id="btnSearch" class="btn btn-success"/><br />
-</form>
-<br />
-<!-- Area to display appointments -->
-<div id="displayAppointment" style="width:500px"></div>
+<body style="padding: 25px;">
+	<form method="post" action="insertData.pl">
+		<input type="button" value="New" id="btnNew" class="btn btn-primary" />
+		<input type="submit" value="Add" id="btnAdd" class="btn btn-success" />&nbsp;
+		<input type="button" value="Cancel" id="btnCancel"
+			class="btn btn-danger" /><br />
+		<br />
+		<div id="info">
+			<table>
+				<tr>
+					<td><label class="col-md-4 control-label">Date</label></td>
+					<td><input type="date" id="txtDate" name="txtDate"
+						placeholder="2015-10-10 (Format)" required
+						class="form-control input-md" /></td>
+				</tr>
+				<tr>
+					<td><label class="col-md-4 control-label">Time</label></td>
+					<td><input type="time" id="txtTime" name="txtTime"
+						placeholder="10:25(24Hours Format)" required
+						class="form-control input-md" /></td>
+				</tr>
+				<tr>
+					<td><label class="col-md-4 control-label">Description</label></td>
+					<td><input type="text" id="txtDescription"
+						placeholder="Description Here..." name="txtDescription" required
+						class="form-control input-md" /></td>
+				</tr>
+			</table>
+	</form>
+	</div>
+	<br />
+	<form>
+		<input type="text" id="txtSearch" name="txtSearch" required="true"
+			placeholder="Search Data..." />&nbsp;<input type="button"
+			value="Search" id="btnSearch" class="btn btn-success" /><br />
+	</form>
+	<br />
+	<!-- Area to display appointments -->
+	<div id="displayAppointment" style="width: 500px"></div>
 </body>
 </html>
