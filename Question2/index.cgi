@@ -18,7 +18,7 @@ my $res=$dbh->selectall_arrayref(q(SELECT first_name,last_name,home FROM person)
 foreach(@$res){
     foreach my $i(0..$#$_){
         print"$_->[$i]";
-         print " ";
+         print "\n";
         
     }
 
@@ -33,17 +33,19 @@ my $age=28;
 print "
 <html>
      <head>
-          <title> Perl Web Example 1
+          <title> Question 2
           </title>
     </head>
  
 <body bgcolor=white>
     <center>
-       <H2> Output for Perl Web Example 1</H2>
+       <H2> Question 2</H2>
     </center>
-    <I>Hi $Name. In eleven years you will be</I    <b> $age</b>   <I>years old</I>.
+    <I>Julia Chen</I>
  
-    <p>I've got to go back to work now. Bye Bye.</p>
+    <p>515-343-0878</p>
+
+
 </body>
 
 </html>
