@@ -1,10 +1,10 @@
-#!C:\Perl64\bin\perl.exe -wT
+#!C:\xampp\perl\bin\perl.exe
 
 print "Content-type : text/html\n\n";
 use DBI;
 use strict;
 use CGI;
-
+print STDERR "message\n";
 my $driver="SQLite";
 my $database="atnt.db";
 my $dsn="DBI:$driver:dbname=$database";

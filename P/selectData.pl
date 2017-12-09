@@ -1,5 +1,4 @@
-#!C:\Perl64\bin\perl.exe -wT
-
+#!C:\xampp\perl\bin\perl.exe
 print "Content-type : text/json\n\n";
 use strict;
 use DBI;
