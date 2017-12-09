@@ -1,10 +1,35 @@
 #!C:\xampp\perl\bin\perl.exe
 use CGI;
 
+use strict;
+use DBI;
 
-$co = new CGI;
+my $co = new CGI;
 print $co->header;
 
+my $dbh = DBI->connect(          
+    "dbi:SQLite:dbname=problem2.db", 
+    "",                          
+    "",                          
+    { RaiseError => 1 },         
+) or die $DBI::errstr;
+my $res=$dbh->selectall_arrayref(q(SELECT first_name,last_name,home FROM person));
+
+foreach(@$res){
+    foreach my $i(0..$#$_){
+        print"$_->[$i]";
+         print " ";
+        
+    }
+
+     print "\n";
+
+}
+
+
+
+my $Name="Julia";
+my $age=28;
 print "
 <html>
      <head>
